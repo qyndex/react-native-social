@@ -1,4 +1,4 @@
-import type { Author, Post } from '../../types/social';
+import type { Author, Post, Comment, Profile } from '../../types/social';
 
 /**
  * Compile-time type checks for the social types.
@@ -39,6 +39,7 @@ describe('Social types', () => {
         avatar: null,
       },
       content: 'Test content',
+      imageUrl: null,
       likes: 5,
       comments: 2,
       createdAt: '2024-01-01T00:00:00.000Z',
@@ -46,6 +47,7 @@ describe('Social types', () => {
     };
     expect(post.id).toBe('p1');
     expect(post.content).toBe('Test content');
+    expect(post.imageUrl).toBeNull();
     expect(post.likes).toBe(5);
     expect(post.comments).toBe(2);
     expect(post.liked).toBe(false);
@@ -57,11 +59,43 @@ describe('Social types', () => {
       id: 'p2',
       author: { id: 'u1', name: 'A', handle: '@a', avatar: null },
       content: '',
+      imageUrl: null,
       likes: 0,
       comments: 0,
       createdAt: '',
       liked: true,
     };
     expect(typeof post.liked).toBe('boolean');
+  });
+
+  it('Comment type has required fields', () => {
+    const comment: Comment = {
+      id: 'c1',
+      postId: 'p1',
+      author: { id: 'u1', name: 'Test User', handle: '@test', avatar: null },
+      content: 'Great post!',
+      createdAt: '2024-01-01T00:00:00.000Z',
+    };
+    expect(comment.id).toBe('c1');
+    expect(comment.postId).toBe('p1');
+    expect(comment.content).toBe('Great post!');
+  });
+
+  it('Profile type has required fields', () => {
+    const profile: Profile = {
+      id: 'u1',
+      username: 'testuser',
+      fullName: 'Test User',
+      bio: 'Hello world',
+      avatarUrl: null,
+      postsCount: 10,
+      followersCount: 100,
+      followingCount: 50,
+      isFollowing: false,
+    };
+    expect(profile.id).toBe('u1');
+    expect(profile.username).toBe('testuser');
+    expect(profile.followersCount).toBe(100);
+    expect(profile.isFollowing).toBe(false);
   });
 });

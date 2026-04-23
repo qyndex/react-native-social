@@ -24,6 +24,7 @@ const mockPost: Post = {
   id: 'p1',
   author: { id: 'u1', name: 'Alice Chen', avatar: null, handle: '@alice' },
   content: 'Hello world, this is a test post!',
+  imageUrl: null,
   likes: 10,
   comments: 3,
   createdAt: new Date(Date.now() - 3_600_000).toISOString(),
